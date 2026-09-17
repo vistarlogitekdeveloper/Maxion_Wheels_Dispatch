@@ -32,7 +32,7 @@ class QrSvg {
   static String build(
     String data, {
     QrEcc ecc = QrEcc.medium,
-    int quietZoneModules = 4,
+    int quietZoneModules = 2,
     String cssClass = 'qr',
   }) {
     final safeData = data.isEmpty ? ' ' : data;
@@ -43,8 +43,6 @@ class QrSvg {
         QrCode.fromData(data: safeData, errorCorrectLevel: _level(ecc)),
       );
     } on InputTooLongException {
-      // Fall back to the lowest correction level, which holds the most data,
-      // rather than printing a label with no symbol at all.
       image = QrImage(
         QrCode.fromData(data: safeData, errorCorrectLevel: QrErrorCorrectLevel.L),
       );
@@ -65,8 +63,8 @@ class QrSvg {
     return '<svg class="$cssClass" xmlns="http://www.w3.org/2000/svg" '
         'viewBox="0 0 $span $span" shape-rendering="crispEdges" '
         'role="img" aria-label="QR code">'
-        '<rect width="$span" height="$span" fill="#fff"/>'
-        '<path d="$path" fill="#000"/>'
+        '<rect width="$span" height="$span" fill="#ffffff"/>'
+        '<path d="$path" fill="#000000"/>'
         '</svg>';
   }
 

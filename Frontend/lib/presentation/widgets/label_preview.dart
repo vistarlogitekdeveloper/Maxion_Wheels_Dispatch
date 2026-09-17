@@ -224,18 +224,19 @@ class LabelPreview extends StatelessWidget {
     final line = parts.length > 6 ? parts[6] : 'PL2';
 
     return Padding(
-      padding: EdgeInsets.all(1.5 * mm),
+      padding: EdgeInsets.symmetric(horizontal: 2 * mm, vertical: 1.5 * mm),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _qr(stock.qrSizeMm, mm),
-          SizedBox(width: 1.5 * mm),
+          SizedBox(width: 2 * mm),
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                       child: Text(
@@ -244,53 +245,51 @@ class LabelPreview extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 2.5 * mm,
-                          fontWeight: FontWeight.w800,
+                          fontSize: 3.8 * mm,
+                          fontWeight: FontWeight.w900,
                         ),
                       ),
                     ),
-                    SizedBox(width: 1 * mm),
                     Container(
                       padding: EdgeInsets.symmetric(
-                        horizontal: 1 * mm,
-                        vertical: 0.3 * mm,
+                        horizontal: 1.2 * mm,
+                        vertical: 0.4 * mm,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(0.6 * mm),
+                        color: Colors.white,
+                        border: Border.all(color: Colors.black, width: 0.5 * mm),
+                        borderRadius: BorderRadius.circular(0.8 * mm),
                       ),
                       child: Text(
-                        shift,
+                        'SHIFT $shift',
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 1.8 * mm,
-                          fontWeight: FontWeight.w800,
+                          color: Colors.black,
+                          fontSize: 2.2 * mm,
+                          fontWeight: FontWeight.w900,
                         ),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 0.4 * mm),
                 Text(
                   serial,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 2.9 * mm,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 3.6 * mm,
+                    fontWeight: FontWeight.w900,
                     fontFamily: 'monospace',
                   ),
                 ),
-                SizedBox(height: 0.4 * mm),
                 Text(
-                  'LINE $line${index != null && total != null ? ' · $index/$total' : ''}',
+                  'LINE $line${index != null && total != null ? ' • $index/$total' : ''}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 1.8 * mm,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 2.4 * mm,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ],

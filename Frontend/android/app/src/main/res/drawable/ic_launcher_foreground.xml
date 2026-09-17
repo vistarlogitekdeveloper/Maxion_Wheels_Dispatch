@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Adaptive-icon foreground: a wheel, drawn as vector art rather than rasterised
+  PNGs at five densities.
+
+  The canvas is the standard 108x108dp adaptive tile. Everything here stays
+  inside the 66dp centre circle the launcher is guaranteed not to crop, so the
+  mark survives every mask shape an OEM applies.
+
+  Vector is viable because minSdk is 30 (SSR T-17, "Android 11 or later") and
+  adaptive icons have existed since API 26 — so no legacy PNG fallback is
+  needed for any device this app supports.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Tyre -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,29 A25,25 0 1,1 53.99,29 Z" />
+    <path
+        android:fillColor="#E0218A"
+        android:pathData="M54,35 A19,19 0 1,1 53.99,35 Z" />
+
+    <!-- Five spokes -->
+    <group android:pivotX="54" android:pivotY="54">
+        <path android:fillColor="#FFFFFF" android:pathData="M52.2,39 h3.6 v13 h-3.6 z" />
+    </group>
+    <group android:pivotX="54" android:pivotY="54" android:rotation="72">
+        <path android:fillColor="#FFFFFF" android:pathData="M52.2,39 h3.6 v13 h-3.6 z" />
+    </group>
+    <group android:pivotX="54" android:pivotY="54" android:rotation="144">
+        <path android:fillColor="#FFFFFF" android:pathData="M52.2,39 h3.6 v13 h-3.6 z" />
+    </group>
+    <group android:pivotX="54" android:pivotY="54" android:rotation="216">
+        <path android:fillColor="#FFFFFF" android:pathData="M52.2,39 h3.6 v13 h-3.6 z" />
+    </group>
+    <group android:pivotX="54" android:pivotY="54" android:rotation="288">
+        <path android:fillColor="#FFFFFF" android:pathData="M52.2,39 h3.6 v13 h-3.6 z" />
+    </group>
+
+    <!-- Hub -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,47 A7,7 0 1,1 53.99,47 Z" />
+</vector>

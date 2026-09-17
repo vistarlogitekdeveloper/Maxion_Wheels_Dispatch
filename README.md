@@ -66,7 +66,7 @@ An enterprise-grade, offline-first Dispatch Operations Digitalization Platform f
 cd Backend
 npm install
 npm run dev
-# Server running on http://localhost:5000
+# Server running on https://api.vistarlogitek.com
 ```
 
 ### 2. Start Frontend Web Client

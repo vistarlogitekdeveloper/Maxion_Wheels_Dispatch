@@ -1,18 +1,10 @@
-import 'package:flutter/foundation.dart';
 
 class ApiEndpoints {
   ApiEndpoints._();
 
-  static String get baseUrl {
-    if (kIsWeb) {
-      return 'http://localhost:5000/api';
-    } else if (defaultTargetPlatform == TargetPlatform.android) {
-      return 'http://10.0.2.2:5000/api';
-    } else {
-      return 'http://localhost:5000/api';
-    }
-  }
+  static const String baseUrl = 'https://api.vistarlogitek.com/api/v1/maxion-dispatch';
 
+  static const String dashboardStats = '/dashboard/stats';
   static const String login = '/auth/login';
   static const String currentUser = '/auth/me';
 

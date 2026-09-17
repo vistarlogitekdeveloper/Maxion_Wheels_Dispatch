@@ -24,7 +24,10 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.vistar.maxion_wheels_dispatch"
-    compileSdk 34
+    compileSdk 36
+    // drift's sqlite3_flutter_libs pulls in jni, which is built against 28.2.
+    // They are backward compatible, so the highest wins.
+    ndkVersion = "28.2.13676358"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -41,8 +44,9 @@ android {
 
     defaultConfig {
         applicationId "com.vistar.maxion_wheels_dispatch"
-        minSdk 21
-        targetSdk 34
+        // SSR T-17: "Handheld app on Android 11 or later". API 30 is Android 11.
+        minSdkVersion 30
+        targetSdk 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

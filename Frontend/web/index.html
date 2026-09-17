@@ -237,6 +237,23 @@
       setTimeout(function () { if (b.parentNode) b.parentNode.removeChild(b); }, 450);
     });
   </script>
+  <script>
+    // Automatically purge old service workers and cache to ensure immediate live updates
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for (var registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        for (var name of names) {
+          caches.delete(name);
+        }
+      });
+    }
+  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

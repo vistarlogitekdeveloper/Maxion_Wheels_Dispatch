@@ -1015,7 +1015,7 @@ class _GatePassScreenState extends ConsumerState<GatePassScreen> with SingleTick
                   SizedBox(
                     width: 260,
                     child: DropdownButtonFormField<String>(
-                      value: _dumpSelectedCustomerCode,
+                      initialValue: _dumpSelectedCustomerCode,
                       isExpanded: true,
                       dropdownColor: context.bgSurfaceElevated,
                       style: TextStyle(color: context.textPrimary),
@@ -1050,7 +1050,7 @@ class _GatePassScreenState extends ConsumerState<GatePassScreen> with SingleTick
                   SizedBox(
                     width: 260,
                     child: DropdownButtonFormField<String>(
-                      value: _dumpSelectedTransporter,
+                      initialValue: _dumpSelectedTransporter,
                       isExpanded: true,
                       dropdownColor: context.bgSurfaceElevated,
                       style: TextStyle(color: context.textPrimary),
@@ -1072,7 +1072,7 @@ class _GatePassScreenState extends ConsumerState<GatePassScreen> with SingleTick
                   SizedBox(
                     width: 240,
                     child: DropdownButtonFormField<String>(
-                      value: _dumpSelectedGatePass,
+                      initialValue: _dumpSelectedGatePass,
                       isExpanded: true,
                       dropdownColor: context.bgSurfaceElevated,
                       style: TextStyle(color: context.textPrimary),

@@ -242,7 +242,7 @@ class AppTheme {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(AppTokens.rLg)),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(AppTokens.rLg)),
           side: BorderSide(color: p.line),
         ),
       ),
@@ -360,7 +360,7 @@ class AppTheme {
               ? AppColors.pink
               : p.scrollThumb,
         ),
-        trackColor: WidgetStatePropertyAll(Colors.transparent),
+        trackColor: const WidgetStatePropertyAll(Colors.transparent),
         radius: const Radius.circular(4),
         thickness: const WidgetStatePropertyAll(8),
       ),

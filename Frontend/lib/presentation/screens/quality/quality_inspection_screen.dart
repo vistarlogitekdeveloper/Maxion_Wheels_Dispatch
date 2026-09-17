@@ -407,7 +407,7 @@ class _QualityInspectionScreenState extends ConsumerState<QualityInspectionScree
                     // Quick Pallet Dropdown Picker
                     if (safeAvailablePallets.isNotEmpty) ...[
                       DropdownButtonFormField<String>(
-                        value: safeAvailablePallets.any((p) => p is Map && p['palletNumber'] == _palletQrController.text.trim())
+                        initialValue: safeAvailablePallets.any((p) => p is Map && p['palletNumber'] == _palletQrController.text.trim())
                             ? _palletQrController.text.trim()
                             : null,
                         isExpanded: true,
@@ -512,7 +512,7 @@ class _QualityInspectionScreenState extends ConsumerState<QualityInspectionScree
 
                     // Defect Reason Selector
                     DropdownButtonFormField<String>(
-                      value: _defectReason,
+                      initialValue: _defectReason,
                       isExpanded: true,
                       dropdownColor: context.bgSurfaceElevated,
                       style: TextStyle(color: context.textPrimary),

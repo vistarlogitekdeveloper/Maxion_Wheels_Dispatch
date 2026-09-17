@@ -23,10 +23,26 @@ dependencies:
   excel: ^4.0.6
   archive: ^3.6.1
 
+  # Offline-first stack (SSR Section 11). Same choice as qr_dispatch_app, which
+  # solves the same problem on the same floor: a local SQLite outbox the gun
+  # writes to first, so a scan is recorded and acknowledged in under a second
+  # whether or not the network is there.
+  drift: ^2.34.3
+  drift_flutter: ^0.3.1
+  sqlite3_flutter_libs: ^0.6.0+eol
+  path_provider: ^2.1.6
+  path: ^1.9.1
+  # Tells the sync loop when to try again, instead of polling into a dead
+  # network from a warehouse aisle.
+  connectivity_plus: ^7.3.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  # Generates app_database.g.dart from the table definitions.
+  drift_dev: ^2.34.3
+  build_runner: ^2.4.13
 
 flutter:
   uses-material-design: true

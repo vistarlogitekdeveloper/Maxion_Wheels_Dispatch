@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Launcher icon background. Vistar brand pink, the same #E0218A the app and the
+  printed labels use, so the gun's home screen matches everything else on the
+  floor.
+-->
+<resources>
+    <color name="ic_launcher_background">#E0218A</color>
+</resources>

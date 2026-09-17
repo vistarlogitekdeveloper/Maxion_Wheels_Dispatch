@@ -345,15 +345,19 @@ class _OemSpdConversionScreenState extends ConsumerState<OemSpdConversionScreen>
     if (reqNo.isEmpty || palletNo.isEmpty) return;
 
     setState(() => _isLoading = true);
+    // Captured before the await: the operator can leave this screen while the
+    // conversion is finishing, and `context` is invalid once they have.
+    final messenger = ScaffoldMessenger.of(context);
     final remoteApi = ref.read(remoteApiProvider);
     final res = await remoteApi.post('/conversion/finish-spd-job', {
       'spdRequestNumber': reqNo,
       'sourcePalletNumber': palletNo,
     });
+    if (!mounted) return;
     setState(() => _isLoading = false);
 
     if (res['success'] == true) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      messenger.showSnackBar(
         SnackBar(
           backgroundColor: AppColors.ok,
           content: Text(res['message'] ?? 'SPD Partial Take finished successfully!'),
@@ -361,7 +365,7 @@ class _OemSpdConversionScreenState extends ConsumerState<OemSpdConversionScreen>
       );
       _fetchSpdData();
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
+      messenger.showSnackBar(
         SnackBar(backgroundColor: AppColors.danger, content: Text(res['message'] ?? 'Finish failed')),
       );
     }

@@ -1,0 +1,10 @@
+{
+  "name": "maxion-wheels-dispatch-root",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix Frontend run build",
+    "deploy": "npm --prefix Frontend run deploy",
+    "build:deploy": "npm --prefix Frontend run build:deploy"
+  }
+}

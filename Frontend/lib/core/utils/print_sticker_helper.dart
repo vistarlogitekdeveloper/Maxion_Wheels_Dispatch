@@ -1,13 +1,13 @@
-import 'dart:html' as html;
-
 import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';
+
+import '../platform/platform_bridge.dart';
 import 'label_stock.dart';
 import 'qr_svg.dart';
 
 /// Opens a print window for a single label.
-void openPrintableSticker({
+Future<void> openPrintableSticker({
   required BuildContext context,
   required String stickerType,
   required String uniqueQrData,
@@ -15,8 +15,8 @@ void openPrintableSticker({
   required String itemCode,
   String? itemDescription,
   required List<Map<String, String>> stickerDetails,
-}) {
-  openPrintableStickerBatch(
+}) async {
+  await openPrintableStickerBatch(
     context: context,
     stickerType: stickerType,
     itemCode: itemCode,
@@ -37,13 +37,13 @@ void openPrintableSticker({
 /// type (see [LabelStock]) and dimensioned entirely in millimetres, so the same
 /// template prints true on both the 203 DPI staging printer and the 300 DPI
 /// pack point printer without rescaling or halftone dithering.
-void openPrintableStickerBatch({
+Future<void> openPrintableStickerBatch({
   required BuildContext context,
   required String stickerType,
   required String itemCode,
   String? itemDescription,
   required List<Map<String, dynamic>> stickers,
-}) {
+}) async {
   final stock = LabelStock.forStickerType(stickerType);
 
   try {
@@ -77,17 +77,20 @@ void openPrintableStickerBatch({
       count: stickers.length,
     );
 
-    final blob = html.Blob([document], 'text/html;charset=utf-8');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    html.window.open(url, '_blank');
+    final savedPath = await openHtmlDocument(document, title: '${stock.displayName}_$itemCode');
 
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: AppColors.ok,
         content: Text(
-          '${stickers.length} x ${stock.displayName} (${stock.sizeLabel}) ready — '
-          'choose A4 sheet or thermal roll, then press Print.',
+          savedPath != null
+              // SSR §5.2: on the floor the label goes to the work point's
+              // printer automatically. Until that server-side path exists, say
+              // where the artwork went rather than implying it printed.
+              ? '${stickers.length} x ${stock.displayName} saved to $savedPath'
+              : '${stickers.length} x ${stock.displayName} (${stock.sizeLabel}) ready — '
+                  'choose A4 sheet or thermal roll, then press Print.',
         ),
       ),
     );

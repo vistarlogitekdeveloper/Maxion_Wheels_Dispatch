@@ -282,7 +282,7 @@ class _PutawayScreenState extends ConsumerState<PutawayScreen> {
                       children: [
                         Expanded(
                           child: DropdownButtonFormField<String>(
-                            value: validSelectedPallet,
+                            initialValue: validSelectedPallet,
                             isExpanded: true,
                             dropdownColor: context.bgSurfaceElevated,
                             style: TextStyle(color: context.textPrimary, fontWeight: FontWeight.w700),
@@ -366,7 +366,7 @@ class _PutawayScreenState extends ConsumerState<PutawayScreen> {
 
                     // Dynamic Available Locations Dropdown
                     DropdownButtonFormField<String>(
-                      value: validSelectedLoc,
+                      initialValue: validSelectedLoc,
                       isExpanded: true,
                       dropdownColor: context.bgSurfaceElevated,
                       style: TextStyle(color: context.textPrimary, fontWeight: FontWeight.w700),

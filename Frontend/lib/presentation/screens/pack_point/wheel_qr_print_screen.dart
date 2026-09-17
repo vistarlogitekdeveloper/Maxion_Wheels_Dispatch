@@ -190,7 +190,7 @@ class _WheelQrPrintScreenState extends ConsumerState<WheelQrPrintScreen> {
               final isWide = constraints.maxWidth > 850;
 
               final shiftDropdown = DropdownButtonFormField<String>(
-                value: _selectedShift,
+                initialValue: _selectedShift,
                 isExpanded: true,
                 dropdownColor: context.bgSurfaceElevated,
                 style: TextStyle(color: context.textPrimary),
@@ -209,7 +209,7 @@ class _WheelQrPrintScreenState extends ConsumerState<WheelQrPrintScreen> {
               );
 
               final lineDropdown = DropdownButtonFormField<String>(
-                value: _selectedLine,
+                initialValue: _selectedLine,
                 isExpanded: true,
                 dropdownColor: context.bgSurfaceElevated,
                 style: TextStyle(color: context.textPrimary),
@@ -239,7 +239,7 @@ class _WheelQrPrintScreenState extends ConsumerState<WheelQrPrintScreen> {
 
                     // Item Selector
                     DropdownButtonFormField<String>(
-                      value: _masterItems.any((m) => m['itemCode'] == _selectedItemCode) ? _selectedItemCode : null,
+                      initialValue: _masterItems.any((m) => m['itemCode'] == _selectedItemCode) ? _selectedItemCode : null,
                       isExpanded: true,
                       dropdownColor: context.bgSurfaceElevated,
                       style: TextStyle(color: context.textPrimary),

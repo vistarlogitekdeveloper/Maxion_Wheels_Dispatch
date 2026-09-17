@@ -241,7 +241,7 @@ class _PalletBuildScreenState extends ConsumerState<PalletBuildScreen> {
             SnackBar(
               backgroundColor: AppColors.ok,
               duration: const Duration(milliseconds: 1200),
-              content: Text('BEEP! Wheel scanned for ' + _activeItem + '. Count: ' + _packedCount.toString() + ' / ' + _stdQty.toString() + ' (Layer ' + _currentLayer.toString() + ')'),
+              content: Text('BEEP! Wheel scanned for $_activeItem. Count: $_packedCount / $_stdQty (Layer $_currentLayer)'),
             ),
           );
         }
@@ -269,9 +269,9 @@ class _PalletBuildScreenState extends ConsumerState<PalletBuildScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: Theme.of(ctx).cardColor,
-        title: Text('Close Pallet ' + _palletNumber, style: TextStyle(color: ctx.textPrimary)),
+        title: Text('Close Pallet $_palletNumber', style: TextStyle(color: ctx.textPrimary)),
         content: Text(
-          'Close pallet ' + _palletNumber + ' with ' + _packedCount.toString() + ' of ' + _stdQty.toString() + ' wheels and save to database.',
+          'Close pallet $_palletNumber with $_packedCount of $_stdQty wheels and save to database.',
           style: TextStyle(color: ctx.textSecondary),
         ),
         actions: [
@@ -304,12 +304,12 @@ class _PalletBuildScreenState extends ConsumerState<PalletBuildScreen> {
                     context: context,
                     title: 'PALLET MASTER LABEL PRINT PREVIEW',
                     documentType: PrintDocumentType.palletMaster,
-                    qrData: 'MWP|' + closedNo,
-                    codeText: 'MWP|' + closedNo,
+                    qrData: 'MWP|$closedNo',
+                    codeText: 'MWP|$closedNo',
                     itemCode: _activeItem,
                     itemDescription: 'Standard Wheel Item',
-                    primaryDetail: 'Total Wheels: ' + packed + ' / ' + _stdQty.toString(),
-                    secondaryDetail: 'Series: ' + typeSeries + ' • Status: STORED',
+                    primaryDetail: 'Total Wheels: $packed / $_stdQty',
+                    secondaryDetail: 'Series: $typeSeries • Status: STORED',
                     metadataFields: [
                       {'PALLET #': closedNo},
                       {'DATE': nowIso},
@@ -346,7 +346,7 @@ class _PalletBuildScreenState extends ConsumerState<PalletBuildScreen> {
           });
 
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Half Pallet ' + _halfPalletNo + ' loaded! Resuming packing into PM series.')),
+            SnackBar(content: Text('Half Pallet $_halfPalletNo loaded! Resuming packing into PM series.')),
           );
         }
       }
@@ -434,7 +434,7 @@ class _PalletBuildScreenState extends ConsumerState<PalletBuildScreen> {
                         ],
                       ),
                       StatusPill(
-                        label: 'PALLET: ' + _palletNumber,
+                        label: 'PALLET: $_palletNumber',
                         variant: PillVariant.purple,
                       ),
                     ],
@@ -472,7 +472,7 @@ class _PalletBuildScreenState extends ConsumerState<PalletBuildScreen> {
                               final std = item['stdQty'] ?? 96;
                               return DropdownMenuItem<String>(
                                 value: code,
-                                child: Text(code + ' — ' + desc + ' (Std: ' + std.toString() + ')', overflow: TextOverflow.ellipsis),
+                                child: Text('$code — $desc (Std: $std)', overflow: TextOverflow.ellipsis),
                               );
                             }).toList(),
                             onChanged: (val) {
@@ -618,7 +618,7 @@ class _PalletBuildScreenState extends ConsumerState<PalletBuildScreen> {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          'Stored Pallet ' + _halfPalletNo + ' has ' + _halfPalletQty.toString() + '/' + _stdQty.toString() + ' wheels for ' + _activeItem + ' at Location ' + _halfPalletLocation + '. Fetch and scan master QR to merge into PM series!',
+                          'Stored Pallet $_halfPalletNo has $_halfPalletQty/$_stdQty wheels for $_activeItem at Location $_halfPalletLocation. Fetch and scan master QR to merge into PM series!',
                           style: TextStyle(color: context.textSecondary, fontSize: 12),
                         ),
                       ],
@@ -689,7 +689,7 @@ class _PalletBuildScreenState extends ConsumerState<PalletBuildScreen> {
                               borderRadius: BorderRadius.circular(6),
                             ),
                             child: Text(
-                              'ITEM: ' + _activeItem,
+                              'ITEM: $_activeItem',
                               style: TextStyle(color: context.brandInk, fontWeight: FontWeight.bold, fontSize: 11),
                             ),
                           ),
@@ -697,7 +697,7 @@ class _PalletBuildScreenState extends ConsumerState<PalletBuildScreen> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'PALLET #' + _palletNumber + ' • TARGET CAPACITY: ' + _stdQty.toString() + ' WHEELS',
+                        'PALLET #$_palletNumber • TARGET CAPACITY: $_stdQty WHEELS',
                         style: TextStyle(color: context.textMuted, fontSize: 12, fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(height: 8),
@@ -717,7 +717,7 @@ class _PalletBuildScreenState extends ConsumerState<PalletBuildScreen> {
                               ),
                             ),
                             Text(
-                              ' / ' + _stdQty.toString(),
+                              ' / $_stdQty',
                               style: TextStyle(
                                 color: context.textMuted,
                                 fontSize: 36,
@@ -744,7 +744,7 @@ class _PalletBuildScreenState extends ConsumerState<PalletBuildScreen> {
                       const SizedBox(height: 12),
 
                       Text(
-                        'LAYER ' + _currentLayer.toString() + ' OF 4 (' + _wheelsPerLayer.toString() + ' WHEELS / LAYER) • ' + (fillPercentage * 100).toInt().toString() + '% FILLED',
+                        'LAYER $_currentLayer OF 4 ($_wheelsPerLayer WHEELS / LAYER) • ${(fillPercentage * 100).toInt()}% FILLED',
                         style: TextStyle(
                           color: isPalletFull ? context.okInk : context.infoInk,
                           fontSize: 13,
@@ -799,7 +799,7 @@ class _PalletBuildScreenState extends ConsumerState<PalletBuildScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Scan Wheel QR with device camera viewfinder or HHT gun scanner (Target: ' + _activeItem + '):',
+                        'Scan Wheel QR with device camera viewfinder or HHT gun scanner (Target: $_activeItem):',
                         style: TextStyle(color: context.textSecondary, fontSize: 13),
                       ),
                       const SizedBox(height: 16),

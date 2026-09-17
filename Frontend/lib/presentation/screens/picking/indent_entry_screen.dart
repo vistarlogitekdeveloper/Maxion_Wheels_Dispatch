@@ -263,7 +263,7 @@ class _IndentEntryScreenState extends ConsumerState<IndentEntryScreen> {
                 LayoutBuilder(
                   builder: (context, cardConstraints) {
                     final isNarrow = cardConstraints.maxWidth < 600;
-                    final fieldWidth = (double targetWidth) => isNarrow ? double.infinity : targetWidth;
+                    double fieldWidth(double targetWidth) => isNarrow ? double.infinity : targetWidth;
 
                     return Wrap(
                       spacing: 16,
@@ -280,7 +280,7 @@ class _IndentEntryScreenState extends ConsumerState<IndentEntryScreen> {
                         SizedBox(
                           width: fieldWidth(240),
                           child: DropdownButtonFormField<String>(
-                            value: _selectedItemCode,
+                            initialValue: _selectedItemCode,
                             isExpanded: true,
                             dropdownColor: context.bgSurfaceElevated,
                             style: TextStyle(color: context.textPrimary),
@@ -315,7 +315,7 @@ class _IndentEntryScreenState extends ConsumerState<IndentEntryScreen> {
                         SizedBox(
                           width: fieldWidth(260),
                           child: DropdownButtonFormField<String>(
-                            value: _selectedOperatorCode,
+                            initialValue: _selectedOperatorCode,
                             isExpanded: true,
                             dropdownColor: context.bgSurfaceElevated,
                             style: TextStyle(color: context.textPrimary),

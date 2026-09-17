@@ -331,7 +331,7 @@ class _PaintPlanScreenState extends ConsumerState<PaintPlanScreen> {
                     if (_masterItems.isNotEmpty) ...[
                       DropdownButtonFormField<String>(
                         key: ValueKey(_itemController.text.trim()),
-                        value: _masterItems.any((m) => (m['itemCode'] ?? '').toString() == _itemController.text.trim())
+                        initialValue: _masterItems.any((m) => (m['itemCode'] ?? '').toString() == _itemController.text.trim())
                             ? _itemController.text.trim()
                             : (_masterItems.isNotEmpty ? (_masterItems.first['itemCode'] ?? '').toString() : null),
                         isExpanded: true,
@@ -468,7 +468,7 @@ class _PaintPlanScreenState extends ConsumerState<PaintPlanScreen> {
                         SizedBox(
                           width: isDesktop ? 240 : double.infinity,
                           child: DropdownButtonFormField<String>(
-                            value: _shift,
+                            initialValue: _shift,
                             isExpanded: true,
                             dropdownColor: context.bgSurfaceElevated,
                             style: TextStyle(color: context.textPrimary),
@@ -489,7 +489,7 @@ class _PaintPlanScreenState extends ConsumerState<PaintPlanScreen> {
                         SizedBox(
                           width: isDesktop ? 240 : double.infinity,
                           child: DropdownButtonFormField<String>(
-                            value: _line,
+                            initialValue: _line,
                             isExpanded: true,
                             dropdownColor: context.bgSurfaceElevated,
                             style: TextStyle(color: context.textPrimary),

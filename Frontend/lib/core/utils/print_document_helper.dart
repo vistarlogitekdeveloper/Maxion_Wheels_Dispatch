@@ -1,10 +1,10 @@
-import 'dart:html' as html;
 import 'package:flutter/material.dart';
 import '../constants/app_colors.dart';
+import '../platform/platform_bridge.dart';
 import 'label_stock.dart';
 import 'qr_svg.dart';
 
-void openPrintableDocument({
+Future<void> openPrintableDocument({
   required BuildContext context,
   required String documentTitle,
   required String codeText,
@@ -14,7 +14,7 @@ void openPrintableDocument({
   required List<Map<String, String>> metadata,
   required List<String> tableHeaders,
   required List<List<String>> tableRows,
-}) {
+}) async {
   try {
     final metaHtml = metadata.map((m) {
       final k = m.keys.first;
@@ -109,21 +109,32 @@ void openPrintableDocument({
 </html>
 ''';
 
-    final blob = html.Blob([htmlContent], 'text/html;charset=utf-8');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    html.window.open(url, '_blank');
+    final messenger = ScaffoldMessenger.of(context);
+    final savedPath = await openHtmlDocument(htmlContent, title: documentTitle);
 
-    ScaffoldMessenger.of(context).showSnackBar(
+    messenger.showSnackBar(
       SnackBar(
         backgroundColor: AppColors.ok,
-        content: Text('Opened printable Excel-style document window for $codeText!'),
+        content: Text(
+          savedPath == null
+              // Web: a new tab opened and its own script calls print().
+              ? 'Print window opened for $codeText.'
+              // Handheld: SSR §5.2 sends labels to the printer of that work
+              // point automatically — a chooser is the thing it removes. Saying
+              // where the document went is the honest answer until server-side
+              // printing addresses the work point's printer directly.
+              : 'Saved to $savedPath',
+        ),
       ),
     );
   } catch (e) {
+    // The old version reported success here regardless, so a failed print
+    // looked exactly like a successful one.
+    if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        backgroundColor: AppColors.ok,
-        content: Text('Document formatted for printing!'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+        content: Text('Could not produce the document: $e'),
       ),
     );
   }

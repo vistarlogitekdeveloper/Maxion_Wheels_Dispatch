@@ -176,7 +176,7 @@ class _ReturnableAssetRegisterScreenState extends ConsumerState<ReturnableAssetR
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(res['message'] ?? 'Returnable packaging (Pallet: ' + palletNo + ', Item: ' + itemCode + ') received and saved to database!'),
+            content: Text(res['message'] ?? 'Returnable packaging (Pallet: $palletNo, Item: $itemCode) received and saved to database!'),
             backgroundColor: AppColors.ok,
           ),
         );
@@ -202,12 +202,12 @@ class _ReturnableAssetRegisterScreenState extends ConsumerState<ReturnableAssetR
       context: context,
       title: 'RETURNABLE ASSET RECEIPT SLIP PREVIEW',
       documentType: PrintDocumentType.palletMaster,
-      qrData: 'MWR|' + qr,
-      codeText: 'MWR|' + qr,
+      qrData: 'MWR|$qr',
+      codeText: 'MWR|$qr',
       itemCode: itemCode,
-      itemDescription: 'Customer Returnable ' + _assetType,
-      primaryDetail: 'Pallet: ' + (palletNo.isNotEmpty ? palletNo : 'N/A') + ' • Customer: ' + (customer.isNotEmpty ? customer : 'N/A'),
-      secondaryDetail: 'Condition: ' + _condition + ' • Type: ' + _assetType,
+      itemDescription: 'Customer Returnable $_assetType',
+      primaryDetail: 'Pallet: ${palletNo.isNotEmpty ? palletNo : 'N/A'} • Customer: ${customer.isNotEmpty ? customer : 'N/A'}',
+      secondaryDetail: 'Condition: $_condition • Type: $_assetType',
       metadataFields: [
         {'ASSET #': qr},
         {'PALLET #': palletNo.isNotEmpty ? palletNo : 'P26000101'},
@@ -308,7 +308,7 @@ class _ReturnableAssetRegisterScreenState extends ConsumerState<ReturnableAssetR
                   final desc = (item['description'] ?? 'Wheel').toString();
                   return DropdownMenuItem<String>(
                     value: code,
-                    child: Text(code + ' (' + desc + ')', overflow: TextOverflow.ellipsis),
+                    child: Text('$code ($desc)', overflow: TextOverflow.ellipsis),
                   );
                 }).toList(),
                 onChanged: (val) {
@@ -550,7 +550,7 @@ class _ReturnableAssetRegisterScreenState extends ConsumerState<ReturnableAssetR
                                               label: status,
                                               variant: status == 'With Customer' ? PillVariant.warn : (status == 'In Repair' ? PillVariant.danger : PillVariant.ok),
                                             )),
-                                            DataCell(Text(age > 0 ? age.toString() + ' d' : '—', style: TextStyle(color: age > 15 ? context.dangerInk : context.textSecondary))),
+                                            DataCell(Text(age > 0 ? '$age d' : '—', style: TextStyle(color: age > 15 ? context.dangerInk : context.textSecondary))),
                                           ],
                                         );
                                       }).toList(),
@@ -584,9 +584,9 @@ class _ReturnableAssetRegisterScreenState extends ConsumerState<ReturnableAssetR
 
                                         return DataRow(cells: [
                                           DataCell(Text(r['customer'] as String, style: TextStyle(fontWeight: FontWeight.w700, color: context.textPrimary))),
-                                          DataCell(Text(out.toString() + ' units')),
-                                          DataCell(Text(ret.toString() + ' units', style: TextStyle(color: context.okInk, fontWeight: FontWeight.w700))),
-                                          DataCell(Text(bal.toString() + ' units', style: TextStyle(color: isOverdue ? context.dangerInk : context.warnInk, fontWeight: FontWeight.w800))),
+                                          DataCell(Text('$out units')),
+                                          DataCell(Text('$ret units', style: TextStyle(color: context.okInk, fontWeight: FontWeight.w700))),
+                                          DataCell(Text('$bal units', style: TextStyle(color: isOverdue ? context.dangerInk : context.warnInk, fontWeight: FontWeight.w800))),
                                           DataCell(StatusPill(
                                             label: isOverdue ? 'OVERDUE ALERT' : 'BALANCED',
                                             variant: isOverdue ? PillVariant.danger : PillVariant.ok,

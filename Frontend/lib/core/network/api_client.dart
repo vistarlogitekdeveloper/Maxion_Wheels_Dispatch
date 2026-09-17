@@ -7,11 +7,14 @@ class ApiClient {
   String? _cachedToken;
 
   ApiClient() {
+    const rootUrl = ApiEndpoints.baseUrl;
+    final formattedBase = rootUrl.endsWith('/') ? rootUrl : '$rootUrl/';
+
     dio = Dio(
       BaseOptions(
-        baseUrl: ApiEndpoints.baseUrl,
-        connectTimeout: const Duration(seconds: 10),
-        receiveTimeout: const Duration(seconds: 10),
+        baseUrl: formattedBase,
+        connectTimeout: const Duration(seconds: 20),
+        receiveTimeout: const Duration(seconds: 20),
         headers: {'Content-Type': 'application/json'},
         validateStatus: (status) => status != null && status < 500,
       ),
@@ -22,6 +25,13 @@ class ApiClient {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
+          if (!options.path.startsWith('http://') && !options.path.startsWith('https://')) {
+            var p = options.path;
+            while (p.startsWith('/')) {
+              p = p.substring(1);
+            }
+            options.path = '$formattedBase$p';
+          }
           if (_cachedToken != null && _cachedToken!.isNotEmpty) {
             options.headers['Authorization'] = 'Bearer $_cachedToken';
           }

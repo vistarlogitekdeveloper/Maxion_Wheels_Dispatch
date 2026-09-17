@@ -1,3 +1,9 @@
+// ignore_for_file: avoid_web_libraries_in_flutter, deprecated_member_use
+//
+// Web-only by construction: camera_qr_scanner_dialog.dart selects this file
+// with a conditional export keyed on dart.library.html, so the lints that exist
+// to keep web libraries out of a mobile build do not apply here.
+
 import 'dart:async';
 import 'dart:html' as html;
 import 'dart:js' as js;
@@ -170,7 +176,7 @@ class _CameraQrScannerDialogState extends State<CameraQrScannerDialog> with Sing
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.videocam_off_outlined, color: AppColors.warn, size: 44),
+              const Icon(Icons.videocam_off_outlined, color: AppColors.warn, size: 44),
               const SizedBox(height: 10),
               Text(
                 'System Camera Access Error',
